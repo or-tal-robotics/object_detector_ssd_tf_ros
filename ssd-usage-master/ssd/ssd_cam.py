@@ -11,6 +11,7 @@ from cv_bridge import CvBridge, CvBridgeError
 import rospy
 from sensor_msgs.msg import Image
 from object_detector_ssd_tf_ros.msg import SSD_Output,SSD_Outputs
+from std_msgs import Float64
 
 
 slim = tf.contrib.slim
@@ -37,14 +38,11 @@ for cls_id in range(len(np.array(labels))):
     colors[cls_id] = (int(random.random()*255), int(random.random()*255), int(random.random()*255))
 
 cam = cv2.VideoCapture(0)
-#ret = cam.set(3,320)
-#ret = cam.set(4,240)
-#ret = cam.set(5,10)
+
 
 cv_img = 0
 
 def img_callback (ros_img):
-    print ('got an image')
     global bridge, cv_img
     try: 
         cv_img = bridge.imgmsg_to_cv2(ros_img,"rgb8")
@@ -85,7 +83,11 @@ while not rospy.is_shutdown():
             output.x_min = xmin
             output.x_max = xmax
             output.cls = cls_id
-            
+
+            for p in probs[i]:
+                p_out = Float64()
+                p_out.data = p
+                output.probability_distribution.append(p_out)
 
             L_output.outputs.append(output)
             
@@ -112,7 +114,7 @@ while not rospy.is_shutdown():
         L_output.outputs.append(output)
         
     Im_outs_Pub.publish(L_output)  
-    cv2.imshow('ssd300', img)
+    cv2.imshow('SSD output', img)
 
     
     if cv2.waitKey(1) == 27: 
