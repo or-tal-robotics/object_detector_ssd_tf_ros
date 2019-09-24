@@ -37,7 +37,6 @@ colors = dict()
 for cls_id in range(len(np.array(labels))):
     colors[cls_id] = (int(random.random()*255), int(random.random()*255), int(random.random()*255))
 
-cam = cv2.VideoCapture(0)
 
 
 cv_img = 0

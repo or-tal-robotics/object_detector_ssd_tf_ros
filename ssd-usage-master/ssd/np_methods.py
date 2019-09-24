@@ -89,11 +89,13 @@ def ssd_bboxes_select_layer(predictions_layer,
         bboxes = localizations_layer[mask]
     else:
         sub_predictions = predictions_layer[:, :, 1:]
+        #print(predictions_layer.shape)
         idxes = np.where(sub_predictions > select_threshold)
         classes = idxes[-1]+1
         scores = sub_predictions[idxes]
         bboxes = localizations_layer[idxes[:-1]]
-        probs = sub_predictions[-1]/np.sum(sub_predictions[-1])
+        #probs = np.squeeze(sub_predictions)  #/np.sum(sub_predictions[-1])
+        probs = sub_predictions[idxes[:-1]]
 
     return classes, scores, bboxes , probs
 

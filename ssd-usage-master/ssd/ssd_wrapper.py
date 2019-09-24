@@ -13,7 +13,6 @@ slim = tf.contrib.slim
 
 import sys
 sys.path.append('../')
-
 import ssd_vgg_300, ssd_common, np_methods, ssd_vgg_preprocessing
 
  
@@ -38,6 +37,7 @@ class ssdWrapper():
         # Restore SSD model.
         self.isess.run(tf.global_variables_initializer())
         saver = tf.train.Saver()
+        print(ckpt_filename)
         saver.restore(self.isess, ckpt_filename)
 
         # SSD default anchor boxes.
@@ -59,7 +59,7 @@ class ssdWrapper():
         rbboxes = np_methods.bboxes_clip(rbbox_img, rbboxes)
         rclasses, rscores, rbboxes, rprobs = np_methods.bboxes_sort(rclasses, rscores, rbboxes,lprobs, top_k=400)
         rclasses, rscores, rbboxes, rprobs = np_methods.bboxes_nms(rclasses, rscores, rbboxes,rprobs, nms_threshold=nms_threshold)
-        print(rprobs)
+        #print(rprobs)
         # Resize bboxes to original image shape. Note: useless for Resize.WARP!
         rbboxes = np_methods.bboxes_resize(rbbox_img, rbboxes)
         return rclasses, rscores, rbboxes, rprobs
