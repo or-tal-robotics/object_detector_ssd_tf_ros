@@ -11,13 +11,11 @@ slim = tf.contrib.slim
 
 
 
-import sys
-sys.path.append('../')
-import ssd_vgg_300, ssd_common, np_methods, ssd_vgg_preprocessing
+from ssd import ssd_vgg_300, ssd_common, np_methods, ssd_vgg_preprocessing
 
  
 class ssdWrapper():
-    def __init__(self , config, net_shape = (300, 300), data_format = 'NHWC', ckpt_filename = '../model/ssd_300_vgg.ckpt'):
+    def __init__(self , config, net_shape = (300, 300), data_format = 'NHWC', ckpt_filename = 'object_detector_ssd_tf_ros/ssd/model/ssd_300_vgg.ckpt'):
         self.isess = tf.InteractiveSession(config=config)
         # Input placeholder.
         self.net_shape = net_shape

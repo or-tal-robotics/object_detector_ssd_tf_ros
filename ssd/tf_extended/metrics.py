@@ -27,7 +27,7 @@ from tensorflow.python.ops import state_ops
 from tensorflow.python.ops import variable_scope
 from tensorflow.python.ops import variables
 
-from tf_extended import math as tfe_math
+import math as tfe_math
 
 
 # =========================================================================== #

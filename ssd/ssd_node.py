@@ -16,14 +16,10 @@ from std_msgs.msg import Float64
 
 slim = tf.contrib.slim
 
-#matplotlib inline
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-import sys
-sys.path.append('../')
-sys.path.insert(0, '/home/elbazam/catkin_ws/src/ssd_slam/ssd-usage-master/ssd')
-#from ssd 
+
 import ssd_wrapper
 # TensorFlow session: grow memory when needed. TF, DO NOT USE ALL MY GPU MEMORY!!!
 gpu_options = tf.GPUOptions(allow_growth=True)
@@ -32,7 +28,7 @@ config = tf.ConfigProto(log_device_placement=False, gpu_options=gpu_options)
 ssd = ssd_wrapper.ssdWrapper(config = config)
 
 
-labels = pd.read_csv('../model/labels.txt')
+labels = pd.read_csv('object_detector_ssd_tf_ros/ssd/model/labels.txt')
 colors = dict()
 for cls_id in range(len(np.array(labels))):
     colors[cls_id] = (int(random.random()*255), int(random.random()*255), int(random.random()*255))

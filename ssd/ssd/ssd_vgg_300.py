@@ -54,9 +54,10 @@ from collections import namedtuple
 import numpy as np
 import tensorflow as tf
 import sys
+
 import tf_extended as tfe
-import custom_layers
-import ssd_common
+from ssd import custom_layers
+from ssd import ssd_common
 
 slim = tf.contrib.slim
 

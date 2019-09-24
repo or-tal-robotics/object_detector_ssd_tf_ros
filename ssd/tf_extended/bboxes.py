@@ -17,8 +17,8 @@
 import numpy as np
 import tensorflow as tf
 
-from tf_extended import tensors as tfe_tensors
-from tf_extended import math as tfe_math
+import tensors as tfe_tensors
+import math as tfe_math
 
 
 # =========================================================================== #
